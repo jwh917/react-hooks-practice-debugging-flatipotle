@@ -11,10 +11,10 @@ const DEFAULT_STATE = {
   sides: [],
 };
 
-function Form() {
+function Form(props) {
   const [formState, setFormState] = useState(DEFAULT_STATE);
 
-  function handleSubmit() {
+  function handleSubmit(event) {
     event.preventDefault();
     props.addOrder(formState);
 
@@ -24,9 +24,14 @@ function Form() {
     event.target.reset();
   }
 
-  function handleChange() {
+  function handleChange(event) {
+    // console.log(event)
+
     const itemType = event.target.name;
     const item = event.target.value;
+
+    // console.log(itemType)
+    // console.log(item)
 
     if (formState[itemType].includes(item)) {
       setFormState({
@@ -39,6 +44,7 @@ function Form() {
         [itemType]: formState[itemType].concat(item),
       });
     }
+
   }
 
   return (
@@ -60,7 +66,10 @@ function Form() {
           handleOnChange={handleChange}
         />
 
-        <SideForm sides={formState.sides} handleOnChange={handleChange} />
+        <SideForm 
+          sides={formState.sides} 
+          handleOnChange={handleChange} 
+        />
 
         <br />
 
